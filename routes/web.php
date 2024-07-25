@@ -26,15 +26,22 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function () {
 
     //Admin Register
     Route::get('/register', [AdminController::class, 'register'])->name('register');
+    Route::post('/register-post', [AdminController::class, 'registerPost'])->name('registerPost');
 
-    //Admin Register
+    //Users
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/user-delete/{id}', [AdminController::class, 'userDelete'])->name('userDelete');
+    Route::get('/user-status/{id}', [AdminController::class, 'userStatus'])->name('userStatus');
 
     //Admin Profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::post('/change-password/{id}', [AdminController::class, 'changePassword'])->name('changePassword');
+    Route::post('/change-information/{id}', [AdminController::class, 'changeInformation'])->name('changeInformation');
+    Route::post('/change-profile/{id}', [AdminController::class, 'changeProfile'])->name('changeProfile');
 
     //System Information
     Route::get('/system-information', [SystemInformationController::class, 'systemInformation'])->name('systemInformation');
+    Route::post('/system-information-post/{id}', [SystemInformationController::class, 'systemInformationPost'])->name('systemInformationPost');
 });
 
 

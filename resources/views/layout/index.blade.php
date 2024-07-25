@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/images/Logo/fav.jpg') }}" />
         <link rel="preconnect" href="https://fonts.googleapis.com/" />
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
@@ -62,8 +63,20 @@
         <script defer src="{{ asset('dashboard/js/popper.min.js') }}"></script>
         <script defer src="{{ asset('dashboard/js/tippy-bundle.umd.min.js') }}"></script>
         <script defer src="{{ asset('dashboard/js/sweetalert.min.js') }}"></script>
+
+        <script src="{{ asset('dashboard/js/jquery-3.4.1.min.js') }}"></script>
+
         <script src="{{ asset('dashboard/js/main.js') }}"></script>
         <script src="{{ asset('dashboard/js/custom.js') }}"></script>
+
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
+
         <script>
             document.addEventListener("alpine:init", () => {
                 Alpine.data("modal", (initialOpenState = false) => ({

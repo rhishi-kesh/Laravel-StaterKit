@@ -30,7 +30,7 @@
 
     /* Profile Picture */
     .profile {
-        @apply w-10 h-10 rounded-full flex justify-center items-center bg-blue-500 text-white text-base;
+        @apply w-10 h-10 rounded-full flex justify-center items-center bg-blue-500 text-white text-base select-none;
     }
 
     /* Checkbox */
