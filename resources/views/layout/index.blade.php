@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('dashboard/css/animate.css') }}" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('dashboard/css/style.css') }}" />
         @vite('resources/css/app.css')
-        @livewireStyles
         @stack('css')
     </head>
     <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]">
@@ -58,11 +57,17 @@
             </div>
         </div>
 
-        @livewireScripts
         <script src="{{ asset('dashboard/js/perfect-scrollbar.min.js') }}"></script>
         <script defer src="{{ asset('dashboard/js/popper.min.js') }}"></script>
         <script defer src="{{ asset('dashboard/js/tippy-bundle.umd.min.js') }}"></script>
         <script defer src="{{ asset('dashboard/js/sweetalert.min.js') }}"></script>
+
+        //Alpine JS
+        <script src="{{ asset('dashboard/js/alpine-collaspe.min.js') }}"></script>
+        <script src="{{ asset('dashboard/js/alpine-persist.min.js') }}"></script>
+        <script defer src="{{ asset('dashboard/js/alpine-ui.min.js') }}"></script>
+        <script defer src="{{ asset('dashboard/js/alpine-focus.min.js') }}"></script>
+        <script defer src="{{ asset('dashboard/js/alpine.min.js') }}"></script>
 
         <script src="{{ asset('dashboard/js/jquery-3.4.1.min.js') }}"></script>
 
