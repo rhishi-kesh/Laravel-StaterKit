@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Admin',
-                'email' => 'admin@gmail.com',
+                'email' => 'admin@admin.com',
                 'is_premium' => 0,
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'User',
-                'email' => 'user@gmail.com',
+                'email' => 'user@user.com',
                 'is_premium' => 0,
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),
@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Premium',
-                'email' => 'premium@gmail.com',
+                'email' => 'premium@premium.com',
                 'is_premium' => 1,
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),

@@ -52,16 +52,6 @@
                     </div>
                 </div>
 
-                <div class="menu-item">
-                    <a href="{{ route('admin.category.index') }}"
-                        class="menu-link {{ request()->routeIs('admin.category.*') ? 'active' : '' }}">
-                        <span class="menu-icon">
-                            <i class="fa-solid fa-icons fs-2"></i>
-                        </span>
-                        <span class="menu-title">Categorys</span>
-                    </a>
-                </div>
-
                 <div data-kt-menu-trigger="click"
                     class="menu-item {{ request()->routeIs(['faq.*', 'dynamic_page.*']) ? 'active show' : '' }} menu-accordion">
                     <span class="menu-link">

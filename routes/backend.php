@@ -17,17 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/category', 'index')->name('admin.category.index');
-    Route::get('/category/create', 'create')->name('admin.category.create');
-    Route::post('/category/store', 'store')->name('admin.category.store');
-    Route::get('/category/edit/{id}', 'edit')->name('admin.category.edit');
-    Route::post('/category/update/{id}', 'update')->name('admin.category.update');
-    Route::post('/category/status/{id}', 'status')->name('admin.category.status');
-    Route::post('/category/destroy/{id}', 'destroy')->name('admin.category.destroy');
-});
-
 //! Route for ProfileController
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.setting');
 Route::post('/update-profile', [ProfileController::class, 'UpdateProfile'])->name('update.profile');
