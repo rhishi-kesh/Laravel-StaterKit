@@ -54,8 +54,12 @@ Route::controller(LoginController::class)->prefix('users/login')->group(function
 });
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('/users/data', [UserController::class, 'userData']);
-    Route::post('/users/update/{id}', [UserController::class, 'userUpdate']);
-    Route::post('/users/logout', [UserController::class, 'logoutUser']);
-    Route::delete('/users/delete', [UserController::class, 'deleteUser']);
+
+    Route::controller(UserController::class)->prefix('users')->group(function () {
+        Route::get('/data', 'userData');
+        Route::post('/update/{id}', 'userUpdate');
+        Route::post('/logout', 'logoutUser');
+        Route::delete('/delete', 'deleteUser');
+    });
+
 });

@@ -54,7 +54,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         $credentials = $request->only('email', 'password');
@@ -93,7 +93,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {
@@ -122,7 +122,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {
@@ -152,7 +152,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {
@@ -202,7 +202,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {

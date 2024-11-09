@@ -52,7 +52,6 @@ class RegisterController extends Controller {
         $validator = Validator::make($request->all(), [
             'name'           => 'required|string|max:255',
             'email'          => 'required|email|unique:users,email',
-            'number'         => 'required|numeric',
             'password'       => [
                 'required',
                 'string',
@@ -66,7 +65,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {
@@ -74,7 +73,6 @@ class RegisterController extends Controller {
             $user                 = new User();
             $user->name           = $request->input('name');
             $user->email          = $request->input('email');
-            $user->number         = $request->input('number');
             $user->password       = Hash::make($request->input('password')); // Hash the password
             $user->agree_to_terms = $request->input('agree_to_terms');
 
@@ -114,7 +112,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {
