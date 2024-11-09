@@ -7,11 +7,11 @@
     <div class="aside-logo flex-column-auto px-10 pt-9 pb-5" id="kt_aside_logo">
         <!--begin::Logo-->
         <a href="{{ route('admin.dashboard') }}">
-            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/images/logo.svg') }}"
+            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                 class="max-h-50px logo-default theme-light-show" />
-            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/images/logo.svg') }}"
+            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                 class="max-h-50px logo-default theme-dark-show" />
-            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/images/logo.svg') }}"
+            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                 class="max-h-50px logo-minimize" />
         </a>
         <!--end::Logo-->
