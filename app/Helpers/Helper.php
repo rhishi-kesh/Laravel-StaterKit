@@ -16,7 +16,7 @@ function uploadImage($file, $folder) {
         return null;
     }
 
-    $imageName = Str::slug(time()) . '.' . $file->extension();
+    $imageName = Str::slug(time()) . rand() . '.' . $file->extension();
     $path      = public_path('uploads/' . $folder);
     if (!file_exists($path)) {
         mkdir($path, 0755, true);
@@ -24,7 +24,6 @@ function uploadImage($file, $folder) {
     $file->move($path, $imageName);
     return 'uploads/' . $folder . '/' . $imageName;
 }
-
 
 /**
  * Delete an image and return a boolean.
@@ -62,7 +61,6 @@ function deleteImage($imageUrl)
         return false;
     }
 }
-
 
 
 /**
