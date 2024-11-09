@@ -10,7 +10,7 @@
                 </div>
             </div>
             <a href="{{ route('admin.dashboard') }}" class="d-lg-none">
-                <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/images/logo.svg') }}"
+                <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                     class="mh-40px" />
             </a>
             <div class="btn btn-icon w-auto ps-0 btn-active-color-primary d-none d-lg-inline-flex me-2 me-lg-5 "
