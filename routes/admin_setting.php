@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\Settings\DynamicPageController;
-use App\Http\Controllers\Backend\Settings\MailSettingController;
-use App\Http\Controllers\Backend\Settings\ProfileController;
-use App\Http\Controllers\Backend\Settings\SocialMediaController;
-use App\Http\Controllers\Backend\Settings\SystemSettingController;
+use App\Http\Controllers\Web\Backend\Settings\DynamicPageController;
+use App\Http\Controllers\Web\Backend\Settings\MailSettingController;
+use App\Http\Controllers\Web\Backend\Settings\ProfileController;
+use App\Http\Controllers\Web\Backend\Settings\SocialMediaController;
+use App\Http\Controllers\Web\Backend\Settings\SystemSettingController;
 
 
 //! This route is for updating the user's profile
