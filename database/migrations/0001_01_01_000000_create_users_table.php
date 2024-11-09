@@ -18,11 +18,6 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('number')->nullable();
-            $table->string('address')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('long')->nullable();
-            $table->enum('gender', ['male', 'female', 'others'])->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('avatar')->nullable();
             $table->string('provider')->nullable(); // Field to store social provider name (e.g., 'google', 'facebook')

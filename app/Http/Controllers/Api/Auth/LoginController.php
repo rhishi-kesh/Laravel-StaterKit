@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotPasswordOtp;
 use App\Models\EmailOtp;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponse;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
+
     use ApiResponse;
 
     /**
@@ -25,7 +25,7 @@ class LoginController extends Controller
      * @return void
      */
 
-     private function sendOtp($user) {
+    private function sendOtp($user) {
         $code = rand(1000, 9999);
 
         // Store verification code in the database
@@ -33,7 +33,7 @@ class LoginController extends Controller
             ['user_id' => $user->id],
             [
                 'verification_code' => $code,
-                'expires_at' => Carbon::now()->addMinutes(1)
+                'expires_at'        => Carbon::now()->addMinutes(1),
             ]
         );
 
@@ -49,8 +49,8 @@ class LoginController extends Controller
 
     public function userLogin(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'    => 'required|email',
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -66,19 +66,14 @@ class LoginController extends Controller
         $user = auth()->user();
 
         $responseData = [
-            'id'       => $user->id,
-            'name'     => $user->name,
-            'email'    => $user->email,
-            'number'    => $user->number,
-            'address'    => $user->address,
-            'lat'    => $user->lat,
-            'long'    => $user->long,
-            'gender'    => $user->gender,
-            'avatar'   => $user->avatar,
-            'provider'   => $user->provider,
-            'provider_id'   => $user->provider_id,
-            'agree_to_terms'   => $user->agree_to_terms,
-            'token'    => $token,
+            'id'             => $user->id,
+            'name'           => $user->name,
+            'email'          => $user->email,
+            'avatar'         => $user->avatar,
+            'provider'       => $user->provider,
+            'provider_id'    => $user->provider_id,
+            'agree_to_terms' => $user->agree_to_terms,
+            'token'          => $token,
         ];
 
         return $this->success($responseData, 'User authenticated successfully', 200);
@@ -91,7 +86,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse  JSON response with success or error.
      */
 
-    public function emailVarify(Request $request) {
+    public function emailVerify(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
@@ -107,7 +102,7 @@ class LoginController extends Controller
 
             $this->sendOtp($user);
 
-            return $this->success($user, 'OTP has been sent successfully.',200);
+            return $this->success($user, 'OTP has been sent successfully.', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
@@ -120,7 +115,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function otpResend(Request $request) {
+    public function otpResend(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
@@ -136,24 +131,24 @@ class LoginController extends Controller
 
             $this->sendOtp($user);
 
-            return $this->success($user, 'OTP has been sent successfully.',200);
+            return $this->success($user, 'OTP has been sent successfully.', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
-     }
+    }
 
-     /**
+    /**
      * Verify the OTP sent to the user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function otpVarify(Request $request) {
+    public function otpVerify(Request $request) {
 
         // Validate the request
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
-            'otp' => 'required|numeric|digits:4',
+            'otp'   => 'required|numeric|digits:4',
         ]);
 
         if ($validator->fails()) {
@@ -165,10 +160,9 @@ class LoginController extends Controller
             $user = User::where('email', $request->input('email'))->first();
 
             $verification = EmailOtp::where('user_id', $user->id)
-            ->where('verification_code', $request->input('otp'))
-            ->where('expires_at', '>', Carbon::now())
-            ->first();
-
+                ->where('verification_code', $request->input('otp'))
+                ->where('expires_at', '>', Carbon::now())
+                ->first();
 
             if ($verification) {
 
@@ -194,14 +188,14 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function resetPassword(Request $request) {
+    public function resetPassword(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email',
+            'email'    => 'required|email|exists:users,email',
             'password' => [
                 'required',
                 'string',
                 'min:8',
-                'confirmed'
+                'confirmed',
             ],
         ], [
             'password.min' => 'The password must be at least 8 characters long.',
@@ -218,10 +212,9 @@ class LoginController extends Controller
             $user->password = Hash::make($request->input('password'));
             $user->save();
 
-            return $this->success($user, 'Password Reset successfully.',200);
+            return $this->success($user, 'Password Reset successfully.', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
-
-     }
+    }
 }

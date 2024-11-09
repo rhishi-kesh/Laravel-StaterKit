@@ -45,6 +45,12 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'role',
+        'provider',
+        'provider_id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -52,11 +58,14 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'agree_to_terms' => 'boolean',
-        'is_premium' => 'boolean',
-        'id' => 'integer',
-    ];
+
+    protected function casts(): array {
+        return [
+            'email_verified_at' => 'datetime',
+            'agree_to_terms' => 'boolean',
+            'is_premium' => 'boolean',
+            'id' => 'integer',
+        ];
+    }
 
 }

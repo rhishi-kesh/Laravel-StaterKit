@@ -9,8 +9,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController extends Controller
 {
@@ -27,7 +25,6 @@ class SocialAuthController extends Controller
             'avatar' => 'nullable|url',
         ]);
 
-        // try {
         // Check if the user already exists in the database
         $user = User::where('email', $request->email)->first();
 
@@ -96,9 +93,5 @@ class SocialAuthController extends Controller
         ];
 
         return $this->success($responseData, 'User authenticated successfully', 200);
-
-        // } catch (Exception $e) {
-        //     return $this->error(['error' => $e->getMessage()], 'Something went wrong', 500);
-        // }
     }
 }
