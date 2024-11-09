@@ -155,7 +155,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors(), 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         try {

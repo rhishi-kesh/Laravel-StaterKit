@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller {
     use ApiResponse;
@@ -33,7 +34,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\JsonResponse  JSON response with success or error.
      */
 
-    public function userUpdate(Request $request, int $id) {
+    public function userUpdate(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'avatar'  => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120',
@@ -46,7 +47,7 @@ class UserController extends Controller {
 
         try {
             // Find the user by ID
-            $user = User::find($id);
+            $user = User::find(auth()->user()->id);
 
             // If user is not found, return an error response
             if (!$user) {
@@ -88,7 +89,7 @@ class UserController extends Controller {
     public function logoutUser() {
 
         try {
-            auth()->guard('api')->logout();
+            JWTAuth::invalidate(JWTAuth::getToken());
 
             return $this->success([], 'Successfully logged out', '200');
         } catch (\Exception $e) {
