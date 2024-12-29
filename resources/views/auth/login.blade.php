@@ -11,12 +11,12 @@
     @include('backend.partials.style')
 </head>
 
-<body id="kt_body" class="auth-bg">
+<body id="kt_body" class="auth-bg" style="background: #3B82F6">
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <div class="d-flex flex-column flex-lg-row-fluid py-10">
                 <div class="d-flex flex-center flex-column flex-column-fluid">
-                    <div class="w-lg-500px p-10 p-lg-15 mx-auto">
+                    <div class="w-lg-500px p-10 p-lg-15 mx-auto bg-white" style="border-radius: 15px">
                         <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
                             action="{{ route('login') }}" method="POST">
                             @csrf
