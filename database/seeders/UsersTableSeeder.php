@@ -19,7 +19,6 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
-                'is_premium' => 0,
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),
                 'role' => 'admin',
@@ -29,7 +28,6 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'User',
                 'email' => 'user@user.com',
-                'is_premium' => 0,
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),
                 'role' => 'user',
@@ -37,12 +35,11 @@ class UsersTableSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
-                'name' => 'Premium',
-                'email' => 'premium@premium.com',
-                'is_premium' => 1,
+                'name' => 'RKB',
+                'email' => 'reshikash300@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('12345678'),
-                'role' => 'user',
+                'role' => 'admin',
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
             ],
