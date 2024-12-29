@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
+ * Upload to Public Folder
  * Upload an image and return its URL.
  *
  * @param  \Illuminate\Http\UploadedFile  $image
@@ -23,6 +24,28 @@ function uploadImage($file, $folder) {
     }
     $file->move($path, $imageName);
     return 'uploads/' . $folder . '/' . $imageName;
+}
+
+
+/**
+ * Upload to Storage Folder
+ * Store a file in the specified folder within Laravel's storage directory and return its path.
+ *
+ * @return string
+ */
+function storeFile($file, $folder) {
+    if (!$file->isValid()) {
+        return null;
+    }
+
+    // Generate a unique file name
+    $fileName = Str::slug(time() . '-' . uniqid()) . '.' . $file->getClientOriginalExtension();
+
+    // Store the file in the specified folder within the storage/app directory
+    $filePath = $file->storeAs($folder, $fileName, 'public');
+
+    // Return the file path for reference
+    return 'storage/' . $filePath; // e.g., "folder/filename.extension"
 }
 
 
