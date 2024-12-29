@@ -4,8 +4,8 @@
 <head>
     <title>@yield('title')</title>
     <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <meta name="author" content="Rhishi Kesh Bhowmik">
+    <meta name="keywords" content="Rhishi Kesh, Rhishi Kesh Bhowmik, RKB, RRR">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset($systemSetting->favicon ?? 'frontend/images/logo.svg') }}">
