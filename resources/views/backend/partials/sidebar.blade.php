@@ -10,8 +10,6 @@
             <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                 class="max-h-50px logo-default theme-light-show" />
             <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
-                class="max-h-50px logo-default theme-dark-show" />
-            <img alt="Logo" src="{{ asset($systemSetting->logo ?? 'backend/media/logos/logo-default.svg') }}"
                 class="max-h-50px logo-minimize" />
         </a>
         <!--end::Logo-->
@@ -53,29 +51,7 @@
                 </div>
 
                 <div data-kt-menu-trigger="click"
-                    class="menu-item {{ request()->routeIs(['faq.*', 'dynamic_page.*']) ? 'active show' : '' }} menu-accordion">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <i class="fa-regular fa-file fs-2"></i>
-                        </span>
-                        <span class="menu-title">Pages</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a href="{{ route('dynamic_page.index') }}"
-                                class="menu-link {{ request()->routeIs(['dynamic_page.index', 'dynamic_page.create', 'dynamic_page.update']) ? 'active show' : '' }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Dynamic Page</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div data-kt-menu-trigger="click"
-                    class="menu-item {{ request()->routeIs(['profile.setting', 'system.index', 'mail.setting', 'social.index']) ? 'active show' : '' }} menu-accordion">
+                    class="menu-item {{ request()->routeIs(['profile.setting', 'system.index', 'mail.setting', 'social.index', 'dynamic_page.*']) ? 'active show' : '' }} menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="fa-solid fa-gear fs-2"></i>
@@ -100,6 +76,15 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">System Setting</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a href="{{ route('dynamic_page.index') }}"
+                                class="menu-link {{ request()->routeIs(['dynamic_page.index', 'dynamic_page.create', 'dynamic_page.update']) ? 'active show' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Dynamic Page</span>
                             </a>
                         </div>
                         <div class="menu-item">
