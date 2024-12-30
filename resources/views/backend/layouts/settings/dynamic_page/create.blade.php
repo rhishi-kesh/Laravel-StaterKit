@@ -36,38 +36,40 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card-style mb-4">
-                    <form method="POST" action="{{ route('dynamic_page.store') }}">
-                        @csrf
-                        <div class="input-style-1 mt-4">
-                            <label for="page_title">Title:</label>
-                            <input type="text" placeholder="Enter Title" id="page_title"
-                                class="form-control @error('page_title') is-invalid @enderror" name="page_title"
-                                value="{{ old('page_title') }}" />
-                            @error('page_title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                    <div class="card card-body">
+                        <form method="POST" action="{{ route('dynamic_page.store') }}">
+                            @csrf
+                            <div class="input-style-1 mt-4">
+                                <label for="page_title">Title:</label>
+                                <input type="text" placeholder="Enter Title" id="page_title"
+                                    class="form-control @error('page_title') is-invalid @enderror" name="page_title"
+                                    value="{{ old('page_title') }}" />
+                                @error('page_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
-                        <div class="input-style-1 mt-4">
-                            <label for="page_content">Content:</label>
-                            <textarea placeholder="Type here..." id="page_content" name="page_content"
-                                class="form-control @error('page_content') is-invalid @enderror">
-                                {{ old('page_content') }}
-                            </textarea>
-                            @error('page_content')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                            <div class="input-style-1 mt-4">
+                                <label for="page_content">Content:</label>
+                                <textarea placeholder="Type here..." id="page_content" name="page_content"
+                                    class="form-control @error('page_content') is-invalid @enderror">
+                                    {{ old('page_content') }}
+                                </textarea>
+                                @error('page_content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
-                        <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ route('dynamic_page.index') }}" class="btn btn-danger me-2">Cancel</a>
-                        </div>
-                    </form>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('dynamic_page.index') }}" class="btn btn-danger me-2">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
