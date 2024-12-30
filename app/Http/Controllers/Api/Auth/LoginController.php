@@ -54,7 +54,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         $credentials = $request->only('email', 'password');
@@ -65,18 +65,9 @@ class LoginController extends Controller {
 
         $user = auth()->user();
 
-        $responseData = [
-            'id'             => $user->id,
-            'name'           => $user->name,
-            'email'          => $user->email,
-            'avatar'         => $user->avatar,
-            'provider'       => $user->provider,
-            'provider_id'    => $user->provider_id,
-            'agree_to_terms' => $user->agree_to_terms,
-            'token'          => $token,
-        ];
+        $user->setAttribute('token', $token);
 
-        return $this->success($responseData, 'User authenticated successfully', 200);
+        return $this->success($user, 'User authenticated successfully', 200);
     }
 
     /**
@@ -93,7 +84,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
@@ -122,7 +113,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
@@ -152,7 +143,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
@@ -171,7 +162,7 @@ class LoginController extends Controller {
 
                 $verification->delete();
 
-                return $this->success($user, 'OTP verified successfully', 200);
+                return $this->success($user, 'OTP Verified Successfully', 200);
             } else {
 
                 return $this->error([], 'Invalid or expired OTP', 400);
@@ -202,7 +193,7 @@ class LoginController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {

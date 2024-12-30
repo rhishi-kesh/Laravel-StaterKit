@@ -41,7 +41,7 @@ class RegisterController extends Controller {
     }
 
     /**
-     * Register User by name, gender, email, number, password & privacy policy
+     * Register User
      *
      * @param  \Illuminate\Http\Request  $request  The HTTP request with the register query.
      * @return \Illuminate\Http\JsonResponse  JSON response with success or error.
@@ -65,7 +65,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
@@ -82,16 +82,9 @@ class RegisterController extends Controller {
 
             $this->sendOtp($user);
 
-            $responseData = [
-                'id'             => $user->id,
-                'name'           => $user->name,
-                'email'          => $user->email,
-                'number'         => $user->number,
-                'agree_to_terms' => $user->agree_to_terms,
-                'token'          => $token,
-            ];
+            $user->setAttribute('token', $token);
 
-            return $this->success($responseData, 'Verification email sent', 201);
+            return $this->success($user, 'Verification email sent', 201);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
@@ -112,7 +105,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
@@ -155,7 +148,7 @@ class RegisterController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {

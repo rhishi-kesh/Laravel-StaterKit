@@ -13,18 +13,20 @@ class UserController extends Controller {
     use ApiResponse;
 
     /**
-     * Fetch User data based on user_id
+     * Fetch Login User Data
      *
      * @return \Illuminate\Http\JsonResponse  JSON response with success or error.
      */
 
     public function userData() {
 
-        $user = User::find(auth()->user()->id);
+        $user = auth()->user();
+
         if (!$user) {
             return $this->error([], 'User Not Found', 404);
         }
-        return $this->success($user, 'User data fetched successfully', '200');
+
+        return $this->success($user, 'User data fetched successfully', 200);
     }
 
     /**
@@ -42,12 +44,12 @@ class UserController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return $this->error([], $validator->errors()->first(), 422);
+            return $this->error($validator->errors(), "Validation Error", 422);
         }
 
         try {
             // Find the user by ID
-            $user = User::find(auth()->user()->id);
+            $user = auth()->user();
 
             // If user is not found, return an error response
             if (!$user) {
@@ -74,7 +76,7 @@ class UserController extends Controller {
 
             $user->save();
 
-            return $this->success($user, 'User updated successfully', '200');
+            return $this->success($user, 'User updated successfully', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
@@ -91,7 +93,7 @@ class UserController extends Controller {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
 
-            return $this->success([], 'Successfully logged out', '200');
+            return $this->success([], 'Successfully logged out', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
@@ -108,6 +110,11 @@ class UserController extends Controller {
             // Get the authenticated user
             $user = auth()->user();
 
+            // If user is not found, return an error response
+            if (!$user) {
+                return $this->error([], "User Not Found", 404);
+            }
+
             // Delete the user's avatar if it exists
             if ($user->avatar) {
                 $previousImagePath = public_path($user->avatar);
@@ -119,7 +126,7 @@ class UserController extends Controller {
             // Delete the user
             $user->delete();
 
-            return $this->success([], 'User deleted successfully', '200');
+            return $this->success([], 'User deleted successfully', 200);
         } catch (\Exception $e) {
             return $this->error([], $e->getMessage(), 500);
         }
