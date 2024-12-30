@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable;
 
       /**
      * Get the identifier that will be stored in the JWT subject claim.
@@ -52,6 +52,7 @@ class User extends Authenticatable implements JWTSubject
         'provider_id',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**

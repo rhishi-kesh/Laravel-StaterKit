@@ -25,7 +25,6 @@ return new class extends Migration
             $table->boolean('agree_to_terms')->default(false); // Field to store agreement to terms
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

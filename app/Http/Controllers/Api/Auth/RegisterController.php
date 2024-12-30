@@ -78,11 +78,7 @@ class RegisterController extends Controller {
 
             $user->save();
 
-            $token = JWTAuth::fromUser($user);
-
             $this->sendOtp($user);
-
-            $user->setAttribute('token', $token);
 
             return $this->success($user, 'Verification email sent', 201);
         } catch (\Exception $e) {
@@ -101,7 +97,7 @@ class RegisterController extends Controller {
         // Validate the request
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
-            'otp'   => 'required|numeric|digits:4',
+            'otp' => 'required|numeric|digits:4',
         ]);
 
         if ($validator->fails()) {
@@ -113,9 +109,10 @@ class RegisterController extends Controller {
             $user = User::where('email', $request->input('email'))->first();
 
             $verification = EmailOtp::where('user_id', $user->id)
-                ->where('verification_code', $request->input('otp'))
-                ->where('expires_at', '>', Carbon::now())
-                ->first();
+            ->where('verification_code', $request->input('otp'))
+            ->where('expires_at', '>', Carbon::now())
+            ->first();
+
 
             if ($verification) {
 
@@ -123,6 +120,10 @@ class RegisterController extends Controller {
                 $user->save();
 
                 $verification->delete();
+
+                $token = JWTAuth::fromUser($user);
+
+                $user->setAttribute('token', $token);
 
                 return $this->success($user, 'OTP verified successfully', 200);
             } else {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotPasswordOtp;
+use App\Mail\RegistationOtp;
 use App\Models\EmailOtp;
 use App\Models\User;
 use App\Traits\ApiResponse;
@@ -41,33 +42,70 @@ class LoginController extends Controller {
     }
 
     /**
+     * Send a Register (OTP) to the user via email.
+     *
+     * @param  \App\Models\User  $user
+     * @return void
+     */
+
+     private function verifyOTP($user) {
+        $code = rand(1000, 9999);
+
+        // Store verification code in the database
+        $verification = EmailOtp::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'verification_code' => $code,
+                'expires_at' => Carbon::now()->addMinutes(15)
+            ]
+        );
+
+        Mail::to($user->email)->send(new RegistationOtp($user, $code));
+    }
+
+    /**
      * User Login
      *
      * @param  \Illuminate\Http\Request  $request  The HTTP request with the Login query.
      * @return \Illuminate\Http\JsonResponse  JSON response with success or error.
      */
 
-    public function userLogin(Request $request) {
+     public function userLogin(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return $this->error($validator->errors(), "Validation Error", 422);
+            return $this->error([], $validator->errors()->first(), 422);
         }
 
         $credentials = $request->only('email', 'password');
 
-        if (!$token = JWTAuth::attempt($credentials)) {
+        $userData = User::where('email', $request->email)->first();
+
+        if ($userData && Hash::check($request->password, $userData->password)) {
+            if($userData->email_verified_at == null) {
+
+                $this->verifyOTP($userData);
+
+                $userData->setAttribute('token', null);
+
+            } else {
+
+                if (!$token = JWTAuth::attempt($credentials)) {
+                    return $this->error([], 'Invalid credentials', 401);
+                }
+
+                $userData = auth()->user();
+
+                $userData->setAttribute('token', $token);
+            }
+        } else {
             return $this->error([], 'Invalid credentials', 401);
         }
 
-        $user = auth()->user();
-
-        $user->setAttribute('token', $token);
-
-        return $this->success($user, 'User authenticated successfully', 200);
+        return $this->success($userData, 'User authenticated successfully', 200);
     }
 
     /**
