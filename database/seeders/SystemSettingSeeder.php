@@ -14,16 +14,14 @@ class SystemSettingSeeder extends Seeder {
         SystemSetting::insert([
             [
                 'id'             => 1,
-                'title'          => 'Trade Support Pros',
-                'email'          => 'Tradespeople@gmail.com',
-                'system_name'    => 'Trade Support Pros',
-                'copyright_text' => 'The contents of this website are 2024 Copyright Family Tradespeople.',
+                'title'          => 'RKB Is The Best!🪄',
+                'email'          => 'support@gmail.com',
+                'system_name'    => 'Laravel Stater Kit',
+                'copyright_text' => 'Copyright © 2017 - 2024 DESIGN AND DEVELOPED BY RKB❤️',
                 'logo'           => null,
                 'favicon'        => null,
-                'description'    => '<p>We connect employees with employers, with no hassle</p>',
-                'created_at'     => Carbon::create('2024', '06', '24', '12', '28', '31'),
-                'updated_at'     => Carbon::create('2024', '06', '24', '12', '30', '55'),
-                'deleted_at'     => null,
+                'description'    => 'The Description',
+                'created_at'     => Carbon::now(),
             ],
         ]);
     }

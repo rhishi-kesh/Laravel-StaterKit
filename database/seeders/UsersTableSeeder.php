@@ -46,6 +46,16 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
             ],
+            [
+                'name' => 'RKB',
+                'email' => 'reshikash300@gmail.com',
+                'is_premium' => 1,
+                'email_verified_at' => now(),
+                'password' => Hash::make('12345678'),
+                'role' => 'superadmin',
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+            ],
         ]);
     }
 }
