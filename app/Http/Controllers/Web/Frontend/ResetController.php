@@ -38,7 +38,6 @@ class ResetController extends Controller
         // Run composer update command
         exec($composerCommand, $output, $resultCode);
 
-        // Check if the command executed successfully
         if ($resultCode === 0) {
             return $this->success($output, 'Composer update completed successfully', 200);
         } else {
@@ -57,4 +56,25 @@ class ResetController extends Controller
 
         return $this->success([], 'Migrations Run and Cache Cleared!', 200);
     }
+
+    /**
+     * Create a storage link and clear the cache
+     *
+     * @return JsonResponse
+     */
+    public function storage(): JsonResponse {
+
+        $linkPath = public_path('storage');
+
+        if ($linkPath) {
+            unlink($linkPath);
+        }
+
+        Artisan::call('storage:link');
+        Artisan::call('cache:clear');
+
+        // Return a successful response
+        return $this->success([], 'Storage Link Successful and Cache Cleared!', 200);
+    }
+
 }
